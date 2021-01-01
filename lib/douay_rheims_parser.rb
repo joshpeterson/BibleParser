@@ -1,7 +1,6 @@
 # This script parses the text of the Douay-Rheims bible translation
-# from Project Guntenberg. It expects a file named douay-rheims.txt
-# in the current directory and it produces a file named douay-rheims.json
-# in the same directory.
+# from Project Guntenberg. It expects a file named translations/douay-rheims.txt
+# from the current directory and it produces a file named translations/douay-rheims.json.
 #
 # Run it like this:
 # ruby douay_rheims_parser.rb
@@ -13,14 +12,14 @@ require_relative "verse.rb"
 require_relative "validate.rb"
 
 class DouayRheimsParser
-  def parse(file_name)
+  def parse(input_file:, output_file:)
     bible = Bible.new("Douay-Rheims", [])
 
     started = false
     parsing_verse = false
     current_verse = ""
 
-    File.foreach(file_name) do |line|
+    File.foreach(input_file) do |line|
       line = line.strip()
 
       # Check for the start or end of parsing
@@ -56,7 +55,7 @@ class DouayRheimsParser
 
     validate(bible, number_of_books: 74)
 
-    File.write("douay-rheims.json", JSON.pretty_generate(bible))
+    File.write(output_file, JSON.pretty_generate(bible))
   end
 
   def book_name?(possible_name)
@@ -95,4 +94,5 @@ end
 
 # Actually parse the input text
 parser = DouayRheimsParser.new
-parser.parse("douay-rheims.txt")
+parser.parse(input_file: "translations/douay-rheims.txt",
+             output_file: "translations/douay-rheims.json")
