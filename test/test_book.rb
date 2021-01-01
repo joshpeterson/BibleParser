@@ -4,7 +4,7 @@ require_relative "../lib/verse"
 require_relative "../lib/chapter"
 require_relative "../lib/book"
 
-class ChapterTest < Minitest::Test
+class BookTest < Minitest::Test
   def test_to_json
     verses = [Verse.new("Test verse 1 content"), Verse.new("Test verse 2 content")]
     verses2 = [Verse.new("Test verse 3 content"), Verse.new("Test verse 4 content")]
