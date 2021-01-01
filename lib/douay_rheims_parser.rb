@@ -92,7 +92,10 @@ class DouayRheimsParser
   end
 end
 
-# Actually parse the input text
-parser = DouayRheimsParser.new
-parser.parse(input_file: "translations/douay-rheims.txt",
-             output_file: "translations/douay-rheims.json")
+# Actually parse the input text only when the script is called directly
+# (not during unit tests).
+if __FILE__ == $0
+  parser = DouayRheimsParser.new
+  parser.parse(input_file: "translations/douay-rheims.txt",
+               output_file: "translations/douay-rheims.json")
+end
