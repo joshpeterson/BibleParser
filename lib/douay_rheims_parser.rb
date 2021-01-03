@@ -79,7 +79,6 @@ class DouayRheimsParser
   end
 
   def strip_verse_number(verse)
-    puts verse if verse.index(".") == nil
     verse[verse.index(".") + 2..-1]
   end
 
