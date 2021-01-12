@@ -34,7 +34,7 @@ class KingJamesParser
 
       if started
         if book_name?(index, lines)
-          bible.books.append(Book.new(current_line, []))
+          bible.books.append(Book.new(fix_book_name(current_line), []))
           bible.books.last.chapters.append(Chapter.new([]))
           current_chapter = 1
           increment = 3
@@ -91,6 +91,15 @@ class KingJamesParser
   def strip_verse_number(verse)
     verse[verse.index(" ") + 1..-1]
   end
+
+  def fix_book_name(name)
+    @@fixed_book_names[name] || name
+  end
+
+  @@fixed_book_names = {
+    "Song of Solomon" => "Song of Songs",
+    "Acts" => "Acts of the Apostles",
+  }
 end
 
 # Actually parse the input text only when the script is called directly
