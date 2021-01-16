@@ -7,6 +7,6 @@ class Bible
   end
 
   def to_json(*options)
-    { "name" => @name, "books" => @books }.to_json(*options)
+    { 'name' => @name, 'books' => @books }.to_json(*options)
   end
 end

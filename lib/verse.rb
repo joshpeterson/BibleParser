@@ -1,4 +1,4 @@
-require "json"
+require 'json'
 
 class Verse
   def initialize(text)
@@ -6,6 +6,6 @@ class Verse
   end
 
   def to_json(*options)
-    { "text" => @text }.to_json(*options)
+    { 'text' => @text }.to_json(*options)
   end
 end
