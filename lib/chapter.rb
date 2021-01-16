@@ -6,6 +6,6 @@ class Chapter
   end
 
   def to_json(*options)
-    { "verses" => @verses }.to_json(*options)
+    { 'verses' => @verses }.to_json(*options)
   end
 end

@@ -5,15 +5,15 @@
 # Run it like this:
 # ruby king_james_parser.rb
 
-require_relative "bible.rb"
-require_relative "book.rb"
-require_relative "chapter.rb"
-require_relative "verse.rb"
-require_relative "validate.rb"
+require_relative 'bible.rb'
+require_relative 'book.rb'
+require_relative 'chapter.rb'
+require_relative 'verse.rb'
+require_relative 'validate.rb'
 
 class KingJamesParser
   def parse(input_file:, output_file:)
-    bible = Bible.new("King James", [])
+    bible = Bible.new('King James', [])
 
     started = false
 
@@ -21,7 +21,7 @@ class KingJamesParser
     number_of_lines = lines.length
     index = 0
     current_chapter = 0
-    current_verse = ""
+    current_verse = ''
     parsing_verse = false
 
     while index < number_of_lines
@@ -29,8 +29,13 @@ class KingJamesParser
 
       current_line = lines[index]
 
-      started = true if not started and current_line == "Genesis"
-      break if started and current_line.include?("End of Project Gutenberg's The King James Bible")
+      started = true if not started and current_line == 'Genesis'
+      if started and
+           current_line.include?(
+             "End of Project Gutenberg's The King James Bible"
+           )
+        break
+      end
 
       if started
         if book_name?(index, lines)
@@ -52,10 +57,10 @@ class KingJamesParser
             bible.books.last.chapters.last.verses.append(
               Verse.new(strip_verse_number(current_verse))
             )
-            current_verse = ""
+            current_verse = ''
             parsing_verse = false
           else
-            current_verse += " " if not current_verse.empty?
+            current_verse += ' ' if not current_verse.empty?
             current_verse += lines[index]
           end
         end
@@ -70,7 +75,8 @@ class KingJamesParser
   end
 
   def book_name?(index, lines)
-    if not lines[index].empty? and lines[index + 1].empty? and lines[index + 2] == "Chapter"
+    if not lines[index].empty? and lines[index + 1].empty? and
+         lines[index + 2] == 'Chapter'
       return true
     end
     return false
@@ -85,11 +91,11 @@ class KingJamesParser
   end
 
   def get_chapter_from_verse(verse)
-    verse[0..verse.index(":")].to_i
+    verse[0..verse.index(':')].to_i
   end
 
   def strip_verse_number(verse)
-    verse[verse.index(" ") + 1..-1]
+    verse[verse.index(' ') + 1..-1]
   end
 
   def fix_book_name(name)
@@ -97,8 +103,8 @@ class KingJamesParser
   end
 
   @@fixed_book_names = {
-    "Song of Solomon" => "Song of Songs",
-    "Acts" => "Acts of the Apostles",
+    'Song of Solomon' => 'Song of Songs',
+    'Acts' => 'Acts of the Apostles'
   }
 end
 
@@ -106,6 +112,8 @@ end
 # (not during unit tests).
 if __FILE__ == $0
   parser = KingJamesParser.new
-  parser.parse(input_file: "translations/king-james.txt",
-               output_file: "translations/king-james.json")
+  parser.parse(
+    input_file: 'translations/king-james.txt',
+    output_file: 'translations/king-james.json'
+  )
 end

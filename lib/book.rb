@@ -8,6 +8,6 @@ class Book
   end
 
   def to_json(*options)
-    { "title" => @title, "chapters" => @chapters }.to_json(*options)
+    { 'title' => @title, 'chapters' => @chapters }.to_json(*options)
   end
 end

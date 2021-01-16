@@ -1,7 +1,7 @@
-source "https://rubygems.org"
+source 'https://rubygems.org'
 
-gem "guard"
-gem "guard-minitest"
-gem "minitest"
-gem "rake"
-gem "rufo"
+gem 'guard'
+gem 'guard-minitest'
+gem 'minitest'
+gem 'rake'
+gem 'prettier'
