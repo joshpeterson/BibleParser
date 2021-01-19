@@ -45,4 +45,56 @@ class BibleTest < Minitest::Test
                    ']}' \
                    ']}'
   end
+
+  def test_from_json
+    bible =
+      Bible.from_hash(
+        JSON.parse(
+          "{\"name\":\"Test Translation Name\"," \
+            "\"books\":[" \
+            "{\"title\":\"Test Title\"," \
+            "\"chapters\":[" \
+            "{\"verses\":[" \
+            "{\"text\":\"Test verse 1 content\"},{\"text\":\"Test verse 2 content\"}" \
+            ']},' \
+            "{\"verses\":[" \
+            "{\"text\":\"Test verse 3 content\"},{\"text\":\"Test verse 4 content\"}" \
+            ']}' \
+            ']},' \
+            "{\"title\":\"Test Title 2\"," \
+            "\"chapters\":[" \
+            "{\"verses\":[" \
+            "{\"text\":\"Test verse 1 content\"},{\"text\":\"Test verse 2 content\"}" \
+            ']},' \
+            "{\"verses\":[" \
+            "{\"text\":\"Test verse 3 content\"},{\"text\":\"Test verse 4 content\"}" \
+            ']}' \
+            ']}' \
+            ']}'
+        )
+      )
+
+    assert_equal 'Test Translation Name', bible.name
+    assert_equal 2, bible.books.length
+    assert_equal 'Test Title', bible.books[0].title
+    assert_equal 2, bible.books[0].chapters.length
+    assert_equal 'Test verse 1 content',
+                 bible.books[0].chapters[0].verses[0].text
+    assert_equal 'Test verse 2 content',
+                 bible.books[0].chapters[0].verses[1].text
+    assert_equal 'Test verse 3 content',
+                 bible.books[0].chapters[1].verses[0].text
+    assert_equal 'Test verse 4 content',
+                 bible.books[0].chapters[1].verses[1].text
+    assert_equal 'Test Title 2', bible.books[1].title
+    assert_equal 2, bible.books[1].chapters.length
+    assert_equal 'Test verse 1 content',
+                 bible.books[1].chapters[0].verses[0].text
+    assert_equal 'Test verse 2 content',
+                 bible.books[1].chapters[0].verses[1].text
+    assert_equal 'Test verse 3 content',
+                 bible.books[1].chapters[1].verses[0].text
+    assert_equal 'Test verse 4 content',
+                 bible.books[1].chapters[1].verses[1].text
+  end
 end
