@@ -8,4 +8,9 @@ class VerseTest < Minitest::Test
     json = JSON.generate(verse)
     assert_equal json, "{\"text\":\"Test verse content\"}"
   end
+
+  def test_from_json
+    verse = Verse.from_hash(JSON.parse("{\"text\":\"Test verse content\"}"))
+    assert_equal 'Test verse content', verse.text
+  end
 end
