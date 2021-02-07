@@ -43,11 +43,11 @@ class DouayRheimsParserTest < Minitest::Test
   end
 
   def test_chapter_name
-    assert @parser.chapter_name?('Canticle of Canticles Chapter 1')
+    assert @parser.chapter_name?('Canticle of Canticles ChapterParser 1')
   end
 
   def test_chapter_name_with_zero
-    assert @parser.chapter_name?('Canticle of Canticles Chapter 10')
+    assert @parser.chapter_name?('Canticle of Canticles ChapterParser 10')
   end
 
   def test_start_of_verse

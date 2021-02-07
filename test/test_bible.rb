@@ -8,19 +8,19 @@ require_relative '../lib/bible'
 class BibleTest < Minitest::Test
   def test_to_json
     verses = [
-      Verse.new('Test verse 1 content'),
-      Verse.new('Test verse 2 content')
+      VerseParser.new('Test verse 1 content'),
+      VerseParser.new('Test verse 2 content')
     ]
     verses2 = [
-      Verse.new('Test verse 3 content'),
-      Verse.new('Test verse 4 content')
+      VerseParser.new('Test verse 3 content'),
+      VerseParser.new('Test verse 4 content')
     ]
-    chapters = [Chapter.new(verses), Chapter.new(verses2)]
+    chapters = [ChapterParser.new(verses), ChapterParser.new(verses2)]
     books = [
-      Book.new('Test Title', chapters),
-      Book.new('Test Title 2', chapters)
+      BookParser.new('Test Title', chapters),
+      BookParser.new('Test Title 2', chapters)
     ]
-    bible = Bible.new('Test Translation Name', books)
+    bible = BibleParser.new('Test Translation Name', books)
     json = JSON.generate(bible)
     assert_equal json,
                  "{\"name\":\"Test Translation Name\"," \
@@ -48,7 +48,7 @@ class BibleTest < Minitest::Test
 
   def test_from_json
     bible =
-      Bible.from_hash(
+      BibleParser.from_hash(
         JSON.parse(
           "{\"name\":\"Test Translation Name\"," \
             "\"books\":[" \

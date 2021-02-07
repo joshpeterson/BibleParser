@@ -1,4 +1,4 @@
-class Book
+class BookParser
   attr_reader :title
   attr_reader :chapters
 
@@ -13,7 +13,7 @@ class Book
 
   def self.from_hash(hash)
     chapters = []
-    hash['chapters'].each { |c| chapters.append(Chapter.from_hash(c)) }
-    return Book.new(hash['title'], chapters)
+    hash['chapters'].each { |c| chapters.append(ChapterParser.from_hash(c)) }
+    return BookParser.new(hash['title'], chapters)
   end
 end

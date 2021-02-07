@@ -1,4 +1,4 @@
-class Bible
+class BibleParser
   attr_reader :name
   attr_reader :books
 
@@ -13,7 +13,7 @@ class Bible
 
   def self.from_hash(hash)
     books = []
-    hash['books'].each { |b| books.append(Book.from_hash(b)) }
-    return Bible.new(hash['name'], books)
+    hash['books'].each { |b| books.append(BookParser.from_hash(b)) }
+    return BibleParser.new(hash['name'], books)
   end
 end

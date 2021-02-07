@@ -7,15 +7,15 @@ require_relative '../lib/book'
 class BookTest < Minitest::Test
   def test_to_json
     verses = [
-      Verse.new('Test verse 1 content'),
-      Verse.new('Test verse 2 content')
+      VerseParser.new('Test verse 1 content'),
+      VerseParser.new('Test verse 2 content')
     ]
     verses2 = [
-      Verse.new('Test verse 3 content'),
-      Verse.new('Test verse 4 content')
+      VerseParser.new('Test verse 3 content'),
+      VerseParser.new('Test verse 4 content')
     ]
-    chapters = [Chapter.new(verses), Chapter.new(verses2)]
-    book = Book.new('Test Title', chapters)
+    chapters = [ChapterParser.new(verses), ChapterParser.new(verses2)]
+    book = BookParser.new('Test Title', chapters)
     json = JSON.generate(book)
     assert_equal json,
                  "{\"title\":\"Test Title\"," \
@@ -33,7 +33,7 @@ class BookTest < Minitest::Test
 
   def test_from_json
     book =
-      Book.from_hash(
+      BookParser.from_hash(
         JSON.parse(
           "{\"title\":\"Test Title\"," \
             "\"chapters\":[" \

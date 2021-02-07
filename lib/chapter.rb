@@ -1,4 +1,4 @@
-class Chapter
+class ChapterParser
   attr_reader :verses
 
   def initialize(verses)
@@ -11,7 +11,7 @@ class Chapter
 
   def self.from_hash(hash)
     verses = []
-    hash['verses'].each { |v| verses.append(Verse.from_hash(v)) }
-    return Chapter.new(verses)
+    hash['verses'].each { |v| verses.append(VerseParser.from_hash(v)) }
+    return ChapterParser.new(verses)
   end
 end
