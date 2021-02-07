@@ -13,7 +13,7 @@ require_relative 'validate.rb'
 
 class KingJamesParser
   def parse(input_file:, output_file:)
-    bible = Bible.new('King James', [])
+    bible = BibleParser.new('King James', [])
 
     started = false
 
@@ -32,22 +32,22 @@ class KingJamesParser
       started = true if not started and current_line == 'Genesis'
       if started and
            current_line.include?(
-             "End of Project Gutenberg's The King James Bible"
+             "End of Project Gutenberg's The King James BibleParser"
            )
         break
       end
 
       if started
         if book_name?(index, lines)
-          bible.books.append(Book.new(fix_book_name(current_line), []))
-          bible.books.last.chapters.append(Chapter.new([]))
+          bible.books.append(BookParser.new(fix_book_name(current_line), []))
+          bible.books.last.chapters.append(ChapterParser.new([]))
           current_chapter = 1
           increment = 3
         elsif start_of_verse?(current_line)
           parsing_verse = true
           this_chapter = get_chapter_from_verse(current_line)
           if this_chapter != current_chapter
-            bible.books.last.chapters.append(Chapter.new([]))
+            bible.books.last.chapters.append(ChapterParser.new([]))
             current_chapter = this_chapter
           end
         end
@@ -55,7 +55,7 @@ class KingJamesParser
         if parsing_verse
           if end_of_verse?(current_line)
             bible.books.last.chapters.last.verses.append(
-              Verse.new(strip_verse_number(current_verse))
+              VerseParser.new(strip_verse_number(current_verse))
             )
             current_verse = ''
             parsing_verse = false
@@ -76,7 +76,7 @@ class KingJamesParser
 
   def book_name?(index, lines)
     if not lines[index].empty? and lines[index + 1].empty? and
-         lines[index + 2] == 'Chapter'
+         lines[index + 2] == 'ChapterParser'
       return true
     end
     return false

@@ -7,7 +7,7 @@ class KingJamesParserTest < Minitest::Test
   end
 
   def test_book_name
-    lines = ['Geneis', '', 'Chapter']
+    lines = ['Geneis', '', 'ChapterParser']
     assert @parser.book_name?(0, lines)
   end
 

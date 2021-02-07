@@ -1,6 +1,6 @@
 require 'json'
 
-class Verse
+class VerseParser
   attr_reader :text
 
   def initialize(text)
@@ -12,6 +12,6 @@ class Verse
   end
 
   def self.from_hash(hash)
-    Verse.new(hash['text'])
+    VerseParser.new(hash['text'])
   end
 end

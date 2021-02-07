@@ -6,10 +6,10 @@ require_relative '../lib/chapter'
 class ChapterTest < Minitest::Test
   def test_to_json
     verses = [
-      Verse.new('Test verse 1 content'),
-      Verse.new('Test verse 2 content')
+      VerseParser.new('Test verse 1 content'),
+      VerseParser.new('Test verse 2 content')
     ]
-    chapter = Chapter.new(verses)
+    chapter = ChapterParser.new(verses)
     json = JSON.generate(chapter)
     assert_equal json,
                  "{\"verses\":" \
@@ -19,7 +19,7 @@ class ChapterTest < Minitest::Test
 
   def test_from_json
     chapter =
-      Chapter.from_hash(
+      ChapterParser.from_hash(
         JSON.parse(
           "{\"verses\":" \
             "[{\"text\":\"Test verse 1 content\"}," \

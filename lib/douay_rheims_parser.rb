@@ -13,7 +13,7 @@ require_relative 'validate.rb'
 
 class DouayRheimsParser
   def parse(input_file:, output_file:)
-    bible = Bible.new('Douay-Rheims', [])
+    bible = BibleParser.new('Douay-Rheims', [])
 
     started = false
     parsing_verse = false
@@ -30,9 +30,9 @@ class DouayRheimsParser
         # Each verse can span multiple lines, so handle verse parsing separately.
         if not parsing_verse
           if book_name?(line)
-            bible.books.append(Book.new(fix_book_name(line), []))
+            bible.books.append(BookParser.new(fix_book_name(line), []))
           elsif chapter_name?(line)
-            bible.books.last.chapters.append(Chapter.new([]))
+            bible.books.last.chapters.append(ChapterParser.new([]))
           elsif start_of_verse?(line)
             parsing_verse = true
           end
@@ -41,7 +41,7 @@ class DouayRheimsParser
         if parsing_verse
           if end_of_verse?(line)
             bible.books.last.chapters.last.verses.append(
-              Verse.new(strip_verse_number(current_verse))
+              VerseParser.new(strip_verse_number(current_verse))
             )
             current_verse = ''
             parsing_verse = false
@@ -69,7 +69,7 @@ class DouayRheimsParser
   end
 
   def chapter_name?(possible_name)
-    possible_name.match(/^.* Chapter [1-9]*/)
+    possible_name.match(/^.* ChapterParser [1-9]*/)
   end
 
   def start_of_verse?(possible_verse)

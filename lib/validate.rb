@@ -9,16 +9,16 @@ def validate(bible, number_of_books:)
   end
 
   bible.books.each_with_index do |book, i|
-    raise "Book at index #{i} does not have a title." if book.title.empty?
+    raise "BookParser at index #{i} does not have a title." if book.title.empty?
     if not valid_book_name?(book.title)
-      raise "Book at index #{i} does not have a valid title: '#{book.title}'"
+      raise "BookParser at index #{i} does not have a valid title: '#{book.title}'"
     end
     if book.chapters.empty?
-      raise "Book at index #{i} does not have any chapters"
+      raise "BookParser at index #{i} does not have any chapters"
     end
     book.chapters.each_with_index do |chapter, j|
       if chapter.verses.empty?
-        raise "Book at index #{index}, chapter at index #{j} does not have any verses."
+        raise "BookParser at index #{index}, chapter at index #{j} does not have any verses."
       end
     end
   end
